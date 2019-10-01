@@ -8,7 +8,7 @@ import java.util.Currency
 data class Currency (val currencyCode: String, var value: Double) {
 
     private fun getCurrencyByCountryCode() : Currency {
-        return Currency.getInstance(this.currencyCode);
+        return Currency.getInstance(this.currencyCode)
     }
 
     fun getCurrencyName(): String {
