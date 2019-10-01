@@ -21,7 +21,7 @@ data class Currency (val currencyCode: String, var value: Double) {
     }
 
     fun getFlag() : Int {
-        val currency = ExtendedCurrency.getCurrencyByName(this.getCurrencyName())
-        return currency.flag
+        val currency = ExtendedCurrency.getCurrencyByISO(this.getCurrencyByCountryCode().currencyCode)
+        return currency?.let { it.flag } ?: -1
     }
 }
