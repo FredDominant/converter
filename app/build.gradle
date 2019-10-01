@@ -11,7 +11,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.freddominant.converter"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -38,7 +38,10 @@ ext {
     v_rx_java_adapter = "2.4.0"
     v_converter_gson = "2.6.1"
     v_logging_interceptor = "4.1.1"
-    v_klaxon = "5.0.1"
+    v_recycler_view = "1.0.0"
+    v_legacy_support = "1.0.0"
+    v_currency_picker = "1.2.1"
+    v_circle_image = "3.0.1"
 }
 
 dependencies {
@@ -54,7 +57,10 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$v_rx_java_adapter"
     implementation "com.squareup.retrofit2:converter-gson:$v_converter_gson"
     implementation "com.squareup.okhttp3:logging-interceptor:$v_logging_interceptor"
-    implementation "com.beust:klaxon:$v_klaxon"
+    implementation "androidx.recyclerview:recyclerview:$v_recycler_view"
+    implementation "androidx.legacy:legacy-support-v4:$v_legacy_support"
+    implementation "com.github.midorikocak:currency-picker-android:$v_currency_picker"
+    implementation "de.hdodenhof:circleimageview:$v_circle_image"
 
     kapt "com.github.bumptech.glide:compiler:$v_glide"
 

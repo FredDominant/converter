@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
             .getCurrenciesFromAPI()
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe({
-                it.getCurrencyRate().map { rate -> Log.e("Currency is ", "$rate") }
+                it.getCurrencyRate().map { rate -> Log.e("Currency is ", rate.getCurrencyName()) }
             }, {
                 Log.e("Error is ", it?.localizedMessage)
                 it.printStackTrace()
