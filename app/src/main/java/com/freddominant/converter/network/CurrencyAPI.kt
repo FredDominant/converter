@@ -12,7 +12,7 @@ class CurrencyAPI {
         this.client = NetworkFactory().getRetrofit().create(NetworkService::class.java)
     }
 
-    fun getCurrenciesFromAPI(base: String = "EUR"): Observable<CurrencyResponse>? {
+    fun getCurrenciesFromAPI(base: String = "EUR"): Observable<CurrencyResponse> {
         return this.client.getCurrencies(base)
             .subscribeOn(Schedulers.io())
     }

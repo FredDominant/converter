@@ -18,6 +18,10 @@ class CurrencyActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         this.setUpAdapter()
         this.viewModel = ViewModelProviders.of(this).get(CurrencyViewModel::class.java)
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.getCurrencies().observe(this, Observer { currencies ->
             val currencyAdapter = this.threadLocal.get()
             currencyAdapter?.let { adapter ->
@@ -26,6 +30,16 @@ class CurrencyActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        this.viewModel.disposeDisposable()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        this.viewModel.disposeDisposable()
     }
 
     private fun setUpAdapter() {
