@@ -3,7 +3,6 @@ package com.freddominant.converter
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.freddominant.converter.models.Currency
-import com.freddominant.converter.network.CurrencyTextWatcher
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_currency_row.view.*
 
@@ -20,11 +19,18 @@ class CurrencyViewHolder(
         containerView.currencyFlag.setImageDrawable(containerView.resources.getDrawable(currency.getFlag()))
         containerView.currencyInput.setText("${currency.value}")
         containerView.setOnClickListener {
+            this.currencyAdapter.setSelectedItem(currency)
             this.clickListener.onCurrencyItemClicked(currency)
             containerView.currencyInput.requestFocus()
             this.moveToTop()
         }
-        containerView.currencyInput.addTextChangedListener(CurrencyTextWatcher(this.currencyAdapter, clickListener, currency))
+        containerView.currencyInput.addTextChangedListener(
+            CurrencyTextWatcher(
+                this.currencyAdapter,
+                clickListener,
+                currency
+            )
+        )
     }
 
     private fun moveToTop() {

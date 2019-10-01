@@ -8,7 +8,8 @@ import com.freddominant.converter.models.Currency
 class CurrencyAdapter(private val clickListener: OnCurrencyItemSelectedListener): RecyclerView.Adapter<CurrencyViewHolder>() {
 
     private var shouldUpdate = true
-    private var currencies = mutableListOf<Currency>()
+    private var currencies = ArrayList<Currency>()
+    private var selectedItem : Currency? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_currency_row, parent, false)
@@ -24,10 +25,26 @@ class CurrencyAdapter(private val clickListener: OnCurrencyItemSelectedListener)
     fun getCurrencies() = this.currencies
 
     fun updateAdapter(currencies: ArrayList<Currency>) {
-        if (this.shouldUpdate) {
+        if (selectedItem != null) {
+            currencies.filter {
+                !it.currencyCode.equals(selectedItem!!.currencyCode, true)
+            }.also {
+                this.currencies = ArrayList(it)
+                this.currencies.add(0, this.selectedItem!!)
+                this.currencies.forEachIndexed { index, currency ->
+                    if (index != 0) {
+                        this.notifyItemChanged(index, currency)
+                    }
+                }
+            }
+        } else {
             this.currencies = currencies
-            this.currencies.forEachIndexed { index, _ ->  this.notifyItemChanged(index) }
+            this.notifyDataSetChanged()
         }
+    }
+
+    fun setSelectedItem(currency: Currency) {
+        this.selectedItem = currency
     }
 
     fun toggleShouldUpdate(update: Boolean) {

@@ -1,10 +1,8 @@
-package com.freddominant.converter.network
+package com.freddominant.converter
 
 import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
-import com.freddominant.converter.CurrencyAdapter
-import com.freddominant.converter.OnCurrencyItemSelectedListener
 import com.freddominant.converter.models.Currency
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,8 +23,6 @@ class CurrencyTextWatcher(private val currencyAdapter: CurrencyAdapter,
             .distinctUntilChanged()
             .subscribe({
                 if (!it.isNullOrBlank()) {
-//                    this.currencyAdapter.currentExchange = s.toString().toDouble()
-//                    this.clickListener.onCurrencyItemClicked(this.currency)
                     this.currencyAdapter.toggleShouldUpdate(true)
                 }
             }, { this.currencyAdapter.toggleShouldUpdate(true) })
