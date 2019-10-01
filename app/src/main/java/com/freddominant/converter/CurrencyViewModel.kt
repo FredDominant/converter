@@ -9,7 +9,6 @@ import com.freddominant.converter.network.CurrencyAPI
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
@@ -23,11 +22,11 @@ class CurrencyViewModel: ViewModel() {
         }
     }
 
-    private fun startSubscription() {
+    fun startSubscription(currencyCode: String = "EUR") {
         compositeDisposable.add(Observable.interval(1000, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                this.fetchCurrencies()
+                this.fetchCurrencies(currencyCode)
             }, { })
         )
     }
@@ -36,9 +35,9 @@ class CurrencyViewModel: ViewModel() {
         return this.currencies
     }
 
-    private fun fetchCurrencies() {
+    private fun fetchCurrencies(currencyCode: String) {
         compositeDisposable.add(CurrencyAPI()
-            .getCurrenciesFromAPI()
+            .getCurrenciesFromAPI(currencyCode)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 if (it.getCurrencyRate().isNotEmpty()) this.currencies.value = it.getCurrencyRate()
