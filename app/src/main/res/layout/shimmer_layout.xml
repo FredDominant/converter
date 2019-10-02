@@ -6,12 +6,12 @@
     android:layout_marginTop="8sp"
     android:layout_marginBottom="8dp"
     android:layout_marginLeft="4dp"
-    android:layout_marginRight="4dp"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_marginRight="4dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <View
         android:id="@+id/currencyFlag"
         android:layout_width="45dp"
+        android:background="#dddddd"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -22,13 +22,13 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:src="@drawable/flag_dkk" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
+    <View
         android:id="@+id/currencyCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="#dddddd"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:fontFamily="@font/roboto_regular"
@@ -41,42 +41,34 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/currencyFlag"
         app:layout_constraintTop_toTopOf="@+id/currencyFlag"
-        app:layout_constraintVertical_bias="0.0"
-        tools:text="DKK" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
+    <View
         android:id="@+id/currencyName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_regular"
-        android:textSize="16sp"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:background="#dddddd"
         app:layout_constraintBottom_toBottomOf="@+id/currencyFlag"
         app:layout_constraintEnd_toEndOf="@+id/currencyCode"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/currencyCode"
         app:layout_constraintTop_toBottomOf="@+id/currencyCode"
-        app:layout_constraintVertical_bias="1.0"
-        tools:text="Danish Kroner" />
+        app:layout_constraintVertical_bias="1.0"/>
 
-    <EditText
+    <View
         android:id="@+id/currencyInput"
         android:layout_width="70dp"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_gravity="start"
+        android:background="#dddddd"
         android:layout_marginEnd="8dp"
-        android:enabled="false"
         android:layout_marginRight="8dp"
-        android:fontFamily="@font/roboto_regular"
-        android:inputType="numberDecimal"
         android:textAlignment="textStart"
-        android:textColor="#000"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/currencyFlag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/currencyName"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:text="100,6" />
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

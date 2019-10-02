@@ -15,7 +15,7 @@ data class CurrencyResponse(
     @SerializedName("rates")
     var rates: CurrencyRate
 ) {
-    fun getCurrencyRate() : ArrayList<Currency> {
+    fun getCurrencyRate(): ArrayList<Currency> {
         val currencies = ArrayList<Currency>()
         val jsonString = Gson().toJson(this.rates)
         val type = object : TypeToken<Map<String, Double>>() {}.type

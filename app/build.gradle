@@ -63,6 +63,7 @@ dependencies {
     implementation "com.github.midorikocak:currency-picker-android:$v_currency_picker"
     implementation "de.hdodenhof:circleimageview:$v_circle_image"
     implementation "androidx.lifecycle:lifecycle-extensions:$v_lifecycle_version"
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
 
     kapt "com.github.bumptech.glide:compiler:$v_glide"
 
