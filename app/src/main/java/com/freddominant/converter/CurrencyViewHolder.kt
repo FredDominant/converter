@@ -27,6 +27,7 @@ class CurrencyViewHolder(
             this.moveToTop()
             this.currencyAdapter.setSelectedItem(currency)
             this.clickListener.onCurrencyItemClicked(currency)
+            this.containerView.currencyInput.isEnabled = true
             containerView.currencyInput.requestFocus()
             currency.userAmount = this.containerView.currencyInput.text.toString().toDouble()
         }
