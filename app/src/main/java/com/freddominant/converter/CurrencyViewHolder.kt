@@ -24,10 +24,11 @@ class CurrencyViewHolder(
 
         containerView.currencyInput.setText(decimalFormat.format(exchangedValue))
         containerView.setOnClickListener {
+            this.moveToTop()
             this.currencyAdapter.setSelectedItem(currency)
             this.clickListener.onCurrencyItemClicked(currency)
-            this.moveToTop()
             containerView.currencyInput.requestFocus()
+            currency.userAmount = this.containerView.currencyInput.text.toString().toDouble()
         }
         containerView.currencyInput.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {

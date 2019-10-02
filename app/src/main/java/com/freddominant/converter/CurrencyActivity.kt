@@ -35,6 +35,7 @@ class CurrencyActivity : AppCompatActivity(), OnCurrencyItemSelectedListener {
             val currencyAdapter = this.threadLocal.get()
             currencyAdapter?.let { adapter ->
                 if (currencies.isNotEmpty()) {
+                    currencyList.setItemViewCacheSize(currencies.size)
                     adapter.updateAdapter(currencies)
                 }
             }
