@@ -43,6 +43,8 @@ ext {
     v_currency_picker = "1.2.1"
     v_circle_image = "3.0.1"
     v_lifecycle_version = "2.1.0"
+    v_mockito = "2.7.22"
+    v_shimmer = "0.1.0@aar"
 }
 
 dependencies {
@@ -63,11 +65,12 @@ dependencies {
     implementation "com.github.midorikocak:currency-picker-android:$v_currency_picker"
     implementation "de.hdodenhof:circleimageview:$v_circle_image"
     implementation "androidx.lifecycle:lifecycle-extensions:$v_lifecycle_version"
-    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+    implementation "com.facebook.shimmer:shimmer:$v_shimmer"
 
     kapt "com.github.bumptech.glide:compiler:$v_glide"
 
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:$v_mockito"
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

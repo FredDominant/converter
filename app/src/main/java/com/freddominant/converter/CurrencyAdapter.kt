@@ -10,7 +10,9 @@ class CurrencyAdapter(private val clickListener: OnCurrencyItemSelectedListener)
     private var shouldUpdate = true
     private var currencies = ArrayList<Currency>()
     private var selectedItem : Currency? = null
-    private var amount = 1.0
+
+    var amount = 1.0
+        get() = this.selectedItem?.userAmount ?: 1.0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_currency_row, parent, false)
@@ -55,10 +57,6 @@ class CurrencyAdapter(private val clickListener: OnCurrencyItemSelectedListener)
         this.shouldUpdate = update
     }
 
-    fun setAmount(amount: Double) {
-        this.amount = amount
-    }
-
-    fun getAmount() = this.selectedItem?.userAmount ?: 1.0
+//    fun getAmount() = this.selectedItem?.userAmount ?: 1.0
 
 }

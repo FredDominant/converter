@@ -17,20 +17,25 @@ class CurrencyActivity : AppCompatActivity(), OnCurrencyItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.setContentView(R.layout.activity_main)
-        shimmerLayout.startShimmerAnimation()
 
-        this.setUpAdapter()
-        this.viewModel = ViewModelProviders.of(this).get(CurrencyViewModel::class.java)
-        this.registerForSubscription()
+        this.also {
+            it.setContentView(R.layout.activity_main)
+            shimmerLayout.startShimmerAnimation()
+            it.setUpAdapter()
+            it.viewModel = ViewModelProviders.of(it).get(CurrencyViewModel::class.java)
+            it.registerForSubscription()
+        }
+
     }
 
     private fun setUpAdapter() {
         val currencyAdapter = CurrencyAdapter(this)
         this.threadLocal.set(currencyAdapter)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        currencyList.adapter = currencyAdapter
-        currencyList.layoutManager = layoutManager
+        currencyList.also {
+            it.adapter = currencyAdapter
+            it.layoutManager = layoutManager
+        }
     }
 
     private fun registerForSubscription() {
@@ -51,8 +56,10 @@ class CurrencyActivity : AppCompatActivity(), OnCurrencyItemSelectedListener {
     }
 
     override fun onCurrencyItemClicked(currency: Currency) {
-        this.viewModel.disposeDisposable()
-        this.viewModel.startSubscription(currency.currencyCode)
+        this.viewModel.also {
+            it.disposeDisposable()
+            it.startSubscription(currency.currencyCode)
+        }
     }
 
     override fun scrollToTop() {
