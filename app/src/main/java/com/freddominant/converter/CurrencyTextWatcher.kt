@@ -9,9 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class CurrencyTextWatcher(private val currencyAdapter: CurrencyAdapter,
-                          private val clickListener: OnCurrencyItemSelectedListener,
-                          private val currency: Currency) : TextWatcher {
+class CurrencyTextWatcher(private val currencyAdapter: CurrencyAdapter) : TextWatcher {
 
     @SuppressLint("CheckResult")
     override fun afterTextChanged(s: Editable?) {
@@ -19,19 +17,18 @@ class CurrencyTextWatcher(private val currencyAdapter: CurrencyAdapter,
         Observable.just(s.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .debounce(4000, TimeUnit.MILLISECONDS)
+            .debounce(2000, TimeUnit.MILLISECONDS)
             .distinctUntilChanged()
             .subscribe({
                 if (!it.isNullOrBlank()) {
-                    this.currencyAdapter.toggleShouldUpdate(true)
+//                    this.currencyAdapter.setAmount(it.toString().toDouble())
+                } else {
+//                    this.currencyAdapter.setAmount(0.0)
                 }
-            }, { this.currencyAdapter.toggleShouldUpdate(true) })
+            }, { })
     }
 
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
 
-    }
-
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-    }
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
 }

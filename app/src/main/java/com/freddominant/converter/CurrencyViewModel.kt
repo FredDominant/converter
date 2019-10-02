@@ -1,6 +1,5 @@
 package com.freddominant.converter
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -46,11 +45,7 @@ class CurrencyViewModel: ViewModel() {
     }
 
     fun handleError(error: Throwable) {
-        error.let {
-            Log.e("Error is ", error.localizedMessage)
-            error.printStackTrace()
-        }
-
+        error.let { error.printStackTrace() }
     }
 
     fun disposeDisposable() {

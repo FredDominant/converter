@@ -10,6 +10,7 @@ class CurrencyAdapter(private val clickListener: OnCurrencyItemSelectedListener)
     private var shouldUpdate = true
     private var currencies = ArrayList<Currency>()
     private var selectedItem : Currency? = null
+    private var amount = 1.0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_currency_row, parent, false)
@@ -21,6 +22,9 @@ class CurrencyAdapter(private val clickListener: OnCurrencyItemSelectedListener)
     }
 
     override fun getItemCount() = this.currencies.size
+
+
+    override fun getItemId(position: Int) = position.toLong()
 
     fun getCurrencies() = this.currencies
 
@@ -50,5 +54,11 @@ class CurrencyAdapter(private val clickListener: OnCurrencyItemSelectedListener)
     fun toggleShouldUpdate(update: Boolean) {
         this.shouldUpdate = update
     }
+
+    fun setAmount(amount: Double) {
+        this.amount = amount
+    }
+
+    fun getAmount() = this.amount
 
 }

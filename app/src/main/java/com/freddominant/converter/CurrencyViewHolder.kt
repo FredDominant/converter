@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.freddominant.converter.models.Currency
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_currency_row.view.*
+import java.text.DecimalFormat
 
 class CurrencyViewHolder(
     override val containerView: View,
@@ -17,21 +18,24 @@ class CurrencyViewHolder(
         containerView.currencyName.text = currency.getCurrencyName()
         containerView.currencyCode.text = currency.currencyCode
         containerView.currencyFlag.setImageDrawable(containerView.resources.getDrawable(currency.getFlag()))
-        containerView.currencyInput.setText("${currency.value}")
+
+        val decimalFormat = DecimalFormat("####.####")
+
+        containerView.currencyInput.setText("${currency.value * this.currencyAdapter.getAmount() }")
         containerView.setOnClickListener {
             this.currencyAdapter.setSelectedItem(currency)
             this.clickListener.onCurrencyItemClicked(currency)
-            containerView.currencyInput.requestFocus()
             this.moveToTop()
+            containerView.currencyInput.requestFocus()
         }
-        containerView.currencyInput.addTextChangedListener(
-            CurrencyTextWatcher(
-                this.currencyAdapter,
-                clickListener,
-                currency
-            )
-        )
+        containerView.currencyInput.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                containerView.currencyInput
+                    .addTextChangedListener(CurrencyTextWatcher(this.currencyAdapter))
+            }
+        }
     }
+
 
     private fun moveToTop() {
         layoutPosition.takeIf { it > 0 }
