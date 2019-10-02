@@ -6,10 +6,9 @@ import java.util.*
 import java.util.Currency
 
 data class Currency (val currencyCode: String, var value: Double) {
+    var userAmount = 1.0
 
-    private fun getCurrencyByCountryCode() : Currency {
-        return Currency.getInstance(this.currencyCode)
-    }
+    private fun getCurrencyByCountryCode() = Currency.getInstance(this.currencyCode)
 
     fun getCurrencyName(): String {
         val currency = this.getCurrencyByCountryCode()

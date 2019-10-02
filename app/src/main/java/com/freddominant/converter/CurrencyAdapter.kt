@@ -59,6 +59,6 @@ class CurrencyAdapter(private val clickListener: OnCurrencyItemSelectedListener)
         this.amount = amount
     }
 
-    fun getAmount() = this.amount
+    fun getAmount() = this.selectedItem?.userAmount ?: 1.0
 
 }

@@ -16,14 +16,22 @@ class CurrencyActivity : AppCompatActivity(), OnCurrencyItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        this.setContentView(R.layout.activity_main)
         this.setUpAdapter()
         this.viewModel = ViewModelProviders.of(this).get(CurrencyViewModel::class.java)
+        this.registerForSubscription()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getCurrencies().observe(this, Observer { currencies ->
+    private fun setUpAdapter() {
+        val currencyAdapter = CurrencyAdapter(this)
+        this.threadLocal.set(currencyAdapter)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        currencyList.adapter = currencyAdapter
+        currencyList.layoutManager = layoutManager
+    }
+
+    private fun registerForSubscription() {
+        this.viewModel.getCurrencies().observe(this, Observer { currencies ->
             val currencyAdapter = this.threadLocal.get()
             currencyAdapter?.let { adapter ->
                 if (currencies.isNotEmpty()) {
@@ -35,7 +43,7 @@ class CurrencyActivity : AppCompatActivity(), OnCurrencyItemSelectedListener {
 
     override fun onCurrencyItemClicked(currency: Currency) {
         this.viewModel.disposeDisposable()
-        viewModel.startSubscription(currency.currencyCode)
+        this.viewModel.startSubscription(currency.currencyCode)
     }
 
     override fun scrollToTop() {
@@ -50,14 +58,6 @@ class CurrencyActivity : AppCompatActivity(), OnCurrencyItemSelectedListener {
     override fun onDestroy() {
         super.onDestroy()
         this.viewModel.disposeDisposable()
-    }
-
-    private fun setUpAdapter() {
-        val currencyAdapter = CurrencyAdapter(this)
-        this.threadLocal.set(currencyAdapter)
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        currencyList.adapter = currencyAdapter
-        currencyList.layoutManager = layoutManager
     }
 
 }

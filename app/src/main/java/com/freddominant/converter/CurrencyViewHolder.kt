@@ -20,18 +20,19 @@ class CurrencyViewHolder(
         containerView.currencyFlag.setImageDrawable(containerView.resources.getDrawable(currency.getFlag()))
 
         val decimalFormat = DecimalFormat("####.####")
+        val exchangedValue = currency.value * this.currencyAdapter.getAmount()
 
-        containerView.currencyInput.setText("${currency.value * this.currencyAdapter.getAmount() }")
+        containerView.currencyInput.setText(decimalFormat.format(exchangedValue))
         containerView.setOnClickListener {
             this.currencyAdapter.setSelectedItem(currency)
             this.clickListener.onCurrencyItemClicked(currency)
             this.moveToTop()
             containerView.currencyInput.requestFocus()
         }
-        containerView.currencyInput.setOnFocusChangeListener { v, hasFocus ->
+        containerView.currencyInput.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 containerView.currencyInput
-                    .addTextChangedListener(CurrencyTextWatcher(this.currencyAdapter))
+                    .addTextChangedListener(CurrencyTextWatcher(this.currencyAdapter, currency))
             }
         }
     }

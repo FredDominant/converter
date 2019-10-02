@@ -9,7 +9,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class CurrencyTextWatcher(private val currencyAdapter: CurrencyAdapter) : TextWatcher {
+class CurrencyTextWatcher(private val currencyAdapter: CurrencyAdapter,
+                          private val currency: Currency) : TextWatcher {
 
     @SuppressLint("CheckResult")
     override fun afterTextChanged(s: Editable?) {
@@ -21,9 +22,9 @@ class CurrencyTextWatcher(private val currencyAdapter: CurrencyAdapter) : TextWa
             .distinctUntilChanged()
             .subscribe({
                 if (!it.isNullOrBlank()) {
-//                    this.currencyAdapter.setAmount(it.toString().toDouble())
+                    this.currency.userAmount = it.toDouble()
                 } else {
-//                    this.currencyAdapter.setAmount(0.0)
+                    this.currency.userAmount = 0.0
                 }
             }, { })
     }
