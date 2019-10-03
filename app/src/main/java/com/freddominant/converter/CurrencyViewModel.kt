@@ -13,14 +13,12 @@ import kotlin.collections.ArrayList
 
 class CurrencyViewModel: ViewModel() {
 
-    var compositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
 
-    var currencies = MutableLiveData<ArrayList<Currency>>()
-
-    var hasError = MutableLiveData<Boolean>()
-
-    init {
-        this.startSubscription()
+    private val currencies: MutableLiveData<ArrayList<Currency>> by lazy {
+        MutableLiveData<ArrayList<Currency>>().also {
+            this.startSubscription()
+        }
     }
 
     fun startSubscription(currencyCode: String = "EUR") {
@@ -28,7 +26,7 @@ class CurrencyViewModel: ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 this.fetchCurrencies(currencyCode)
-            }, { this.handleError(it) })
+            }, { })
         )
     }
 
@@ -36,23 +34,21 @@ class CurrencyViewModel: ViewModel() {
         return this.currencies
     }
 
-    fun fetchCurrencies(currencyCode: String) {
+    private fun fetchCurrencies(currencyCode: String) {
         compositeDisposable.add(CurrencyAPI()
             .getCurrenciesFromAPI(currencyCode)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 if (it.getCurrencyRate().isNotEmpty()) this.currencies.value = it.getCurrencyRate()
-            }, { this.handleError(it) })
+            }, { error -> this.handleError(error) })
         )
     }
 
-    private fun handleError(error: Throwable) {
-        error.let {
-            this.hasError.value = true
-        }
+    fun handleError(error: Throwable) {
+        error.let { error.printStackTrace() }
     }
 
     fun disposeDisposable() {
-        this.compositeDisposable.dispose()
+        this.compositeDisposable.clear()
     }
 }

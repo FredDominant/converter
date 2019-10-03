@@ -9,7 +9,7 @@
     android:layout_marginRight="4dp">
 
     <View
-        android:id="@+id/shimmer_currencyFlag"
+        android:id="@+id/currencyFlag"
         android:layout_width="45dp"
         android:background="#dddddd"
         android:layout_height="45dp"
@@ -25,7 +25,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <View
-        android:id="@+id/shimmer_currencyCode"
+        android:id="@+id/currencyCode"
         android:background="#dddddd"
         android:layout_width="30dp"
         android:layout_height="20dp"
@@ -36,27 +36,27 @@
         android:textColor="#000"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/shimmer_currencyFlag"
+        app:layout_constraintBottom_toBottomOf="@+id/currencyFlag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/shimmer_currencyFlag"
-        app:layout_constraintTop_toTopOf="@+id/shimmer_currencyFlag"
+        app:layout_constraintStart_toEndOf="@+id/currencyFlag"
+        app:layout_constraintTop_toTopOf="@+id/currencyFlag"
         app:layout_constraintVertical_bias="0.0" />
 
     <View
-        android:id="@+id/shimmer_currencyName"
+        android:id="@+id/currencyName"
         android:layout_width="100dp"
         android:layout_height="20dp"
         android:background="#dddddd"
-        app:layout_constraintBottom_toBottomOf="@+id/shimmer_currencyFlag"
-        app:layout_constraintEnd_toEndOf="@+id/shimmer_currencyCode"
+        app:layout_constraintBottom_toBottomOf="@+id/currencyFlag"
+        app:layout_constraintEnd_toEndOf="@+id/currencyCode"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/shimmer_currencyCode"
-        app:layout_constraintTop_toBottomOf="@+id/shimmer_currencyCode"
+        app:layout_constraintStart_toStartOf="@+id/currencyCode"
+        app:layout_constraintTop_toBottomOf="@+id/currencyCode"
         app:layout_constraintVertical_bias="1.0"/>
 
     <View
-        android:id="@+id/shimmer_currencyInput"
+        android:id="@+id/currencyInput"
         android:layout_width="70dp"
         android:layout_height="20dp"
         android:layout_gravity="start"
@@ -64,10 +64,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:textAlignment="textStart"
-        app:layout_constraintBottom_toBottomOf="@+id/shimmer_currencyFlag"
+        app:layout_constraintBottom_toBottomOf="@+id/currencyFlag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/shimmer_currencyName"
+        app:layout_constraintStart_toEndOf="@+id/currencyName"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 

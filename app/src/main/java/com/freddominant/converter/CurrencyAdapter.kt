@@ -1,10 +1,8 @@
-package com.freddominant.converter.adapter
+package com.freddominant.converter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.freddominant.converter.OnCurrencyItemSelectedListener
-import com.freddominant.converter.R
 import com.freddominant.converter.models.Currency
 
 class CurrencyAdapter(private val clickListener: OnCurrencyItemSelectedListener): RecyclerView.Adapter<CurrencyViewHolder>() {

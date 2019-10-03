@@ -1,4 +1,4 @@
-package com.freddominant.converter.adapter
+package com.freddominant.converter
 
 import android.annotation.SuppressLint
 import android.text.Editable
