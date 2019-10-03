@@ -2,12 +2,14 @@ package com.freddominant.converter
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
+import com.freddominant.converter.adapter.CurrencyAdapter
 import com.freddominant.converter.models.Currency
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class CurrencyActivity : AppCompatActivity(), OnCurrencyItemSelectedListener {
@@ -24,9 +26,11 @@ class CurrencyActivity : AppCompatActivity(), OnCurrencyItemSelectedListener {
             it.setUpAdapter()
             it.viewModel = ViewModelProviders.of(it).get(CurrencyViewModel::class.java)
             it.registerForSubscription()
+            it.observeNetworkError()
         }
 
     }
+
 
     private fun setUpAdapter() {
         val currencyAdapter = CurrencyAdapter(this)
@@ -36,6 +40,19 @@ class CurrencyActivity : AppCompatActivity(), OnCurrencyItemSelectedListener {
             it.adapter = currencyAdapter
             it.layoutManager = layoutManager
         }
+    }
+
+    private fun observeNetworkError() {
+        this.viewModel.hasError.observe(this, Observer { hasError ->
+            if (hasError) {
+                shimmerLayout.stopShimmerAnimation()
+                shimmerLayout.visibility = View.GONE
+                Snackbar.make(parentContainer, "Please check your connection", Snackbar.LENGTH_LONG).also {
+                    it.setAction("Retry") { this.registerForSubscription() }
+                    it.show()
+                }
+            }
+        })
     }
 
     private fun registerForSubscription() {
@@ -66,10 +83,6 @@ class CurrencyActivity : AppCompatActivity(), OnCurrencyItemSelectedListener {
         currencyList.scrollToPosition(0)
     }
 
-    override fun onStop() {
-        super.onStop()
-        this.viewModel.disposeDisposable()
-    }
 
     override fun onDestroy() {
         super.onDestroy()
