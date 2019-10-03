@@ -13,12 +13,12 @@ import kotlin.collections.ArrayList
 
 class CurrencyViewModel: ViewModel() {
 
-    private val compositeDisposable = CompositeDisposable()
+    var compositeDisposable = CompositeDisposable()
 
-    private val currencies: MutableLiveData<ArrayList<Currency>> by lazy {
-        MutableLiveData<ArrayList<Currency>>().also {
-            this.startSubscription()
-        }
+    var currencies = MutableLiveData<ArrayList<Currency>>()
+
+    init {
+        this.startSubscription()
     }
 
     fun startSubscription(currencyCode: String = "EUR") {
@@ -34,7 +34,7 @@ class CurrencyViewModel: ViewModel() {
         return this.currencies
     }
 
-    private fun fetchCurrencies(currencyCode: String) {
+    fun fetchCurrencies(currencyCode: String) {
         compositeDisposable.add(CurrencyAPI()
             .getCurrenciesFromAPI(currencyCode)
             .observeOn(AndroidSchedulers.mainThread())
