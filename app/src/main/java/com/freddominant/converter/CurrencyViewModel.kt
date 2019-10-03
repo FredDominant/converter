@@ -17,6 +17,8 @@ class CurrencyViewModel: ViewModel() {
 
     var currencies = MutableLiveData<ArrayList<Currency>>()
 
+    var hasError = MutableLiveData<Boolean>()
+
     init {
         this.startSubscription()
     }
@@ -26,7 +28,7 @@ class CurrencyViewModel: ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 this.fetchCurrencies(currencyCode)
-            }, { })
+            }, { this.handleError(it) })
         )
     }
 
@@ -40,15 +42,17 @@ class CurrencyViewModel: ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 if (it.getCurrencyRate().isNotEmpty()) this.currencies.value = it.getCurrencyRate()
-            }, { error -> this.handleError(error) })
+            }, { this.handleError(it) })
         )
     }
 
-    fun handleError(error: Throwable) {
-        error.let { error.printStackTrace() }
+    private fun handleError(error: Throwable) {
+        error.let {
+            this.hasError.value = true
+        }
     }
 
     fun disposeDisposable() {
-        this.compositeDisposable.clear()
+        this.compositeDisposable.dispose()
     }
 }
