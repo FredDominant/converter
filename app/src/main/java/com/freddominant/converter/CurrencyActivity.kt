@@ -6,7 +6,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
+import com.freddominant.converter.adapter.CurrencyAdapter
 import com.freddominant.converter.models.Currency
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -64,11 +64,6 @@ class CurrencyActivity : AppCompatActivity(), OnCurrencyItemSelectedListener {
 
     override fun scrollToTop() {
         currencyList.scrollToPosition(0)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        this.viewModel.disposeDisposable()
     }
 
     override fun onDestroy() {

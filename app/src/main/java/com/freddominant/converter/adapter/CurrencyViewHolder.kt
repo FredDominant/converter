@@ -1,8 +1,9 @@
-package com.freddominant.converter
+package com.freddominant.converter.adapter
 
 import android.view.View
 import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
+import com.freddominant.converter.OnCurrencyItemSelectedListener
 import com.freddominant.converter.models.Currency
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_currency_row.view.*
@@ -11,7 +12,8 @@ import java.text.DecimalFormat
 class CurrencyViewHolder(
     override val containerView: View,
     private val clickListener: OnCurrencyItemSelectedListener,
-    private val currencyAdapter: CurrencyAdapter) :
+    private val currencyAdapter: CurrencyAdapter
+) :
     RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     fun bindValues(currency: Currency) {
@@ -42,7 +44,12 @@ class CurrencyViewHolder(
     private fun handleInputTextFocusChange(view: View, hasFocus: Boolean, currency: Currency) {
         if (hasFocus) {
             (view as EditText?)?.let {
-                it.addTextChangedListener(CurrencyTextWatcher(this.currencyAdapter, currency))
+                it.addTextChangedListener(
+                    CurrencyTextWatcher(
+                        this.currencyAdapter,
+                        currency
+                    )
+                )
             }
         }
     }
