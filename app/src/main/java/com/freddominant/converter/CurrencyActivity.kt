@@ -26,7 +26,6 @@ class CurrencyActivity : AppCompatActivity(), OnCurrencyItemSelectedListener {
             it.setUpAdapter()
             it.viewModel = ViewModelProviders.of(it).get(CurrencyViewModel::class.java)
             it.registerForSubscription()
-            it.observeNetworkError()
         }
 
     }
@@ -40,19 +39,6 @@ class CurrencyActivity : AppCompatActivity(), OnCurrencyItemSelectedListener {
             it.adapter = currencyAdapter
             it.layoutManager = layoutManager
         }
-    }
-
-    private fun observeNetworkError() {
-        this.viewModel.hasError.observe(this, Observer { hasError ->
-            if (hasError) {
-                shimmerLayout.stopShimmerAnimation()
-                shimmerLayout.visibility = View.GONE
-                Snackbar.make(parentContainer, "Please check your connection", Snackbar.LENGTH_LONG).also {
-                    it.setAction("Retry") { this.registerForSubscription() }
-                    it.show()
-                }
-            }
-        })
     }
 
     private fun registerForSubscription() {

@@ -47,7 +47,9 @@ class CurrencyViewModel: ViewModel() {
     }
 
     private fun handleError(error: Throwable) {
-        error.let { this.hasError.value = true }
+        error.let {
+            this.hasError.value = true
+        }
     }
 
     fun disposeDisposable() {
